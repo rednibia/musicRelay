@@ -1,9 +1,11 @@
-import http.server
-import socketserver
+from flask import Flask
+from flask_restful import Resource, Api, reqparse
+from MusicPlayer import MusicPlayer
 
-PORT = 8080
-Handler = http.server.SimpleHTTPRequestHandler
 
-with socketserver.TCPServer(("", PORT), Handler) as httpd:
-    print("serving at port", PORT)
-    httpd.serve_forever()
+app = Flask(__name__)
+api = Api(app)
+api.add_resource(MusicPlayer, '/play/')
+
+if __name__ == "__main__":
+  app.run(debug=True)
