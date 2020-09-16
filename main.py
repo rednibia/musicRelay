@@ -1,5 +1,5 @@
 from flask import Flask
-from flask_restful import Resource, Api, reqparse
+from flask_restful import Api
 from MusicPlayer import MusicPlayer
 
 
@@ -8,4 +8,4 @@ api = Api(app)
 api.add_resource(MusicPlayer, '/play/')
 
 if __name__ == "__main__":
-  app.run(debug=True)
+    app.run(debug=True)
