@@ -1,9 +1,13 @@
-from flask_restful import Resource
+from flask_restful import Resource, reqparse
 
 
 class MusicPlayer(Resource):
 
-    def post(self, playlist, location):
-        print("playlist: " + playlist)
-        print("location: " + location)
-        pass
+    parser = reqparse.RequestParser()
+
+    def post(self):
+        self.parser.add_argument("playlist")
+        self.parser.add_argument("location")
+        args = self.parser.parse_args()
+        print("playlist: " + args["playlist"])
+        print("location: " + args["location"])
