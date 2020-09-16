@@ -1,13 +1,10 @@
-from flask_restful import Resource, reqparse
+from Database import Database
 
 
-class MusicPlayer(Resource):
+class MusicPlayer(object):
 
-    parser = reqparse.RequestParser()
+    database = Database()
 
-    def post(self):
-        self.parser.add_argument("playlist")
-        self.parser.add_argument("location")
-        args = self.parser.parse_args()
-        print("playlist: " + args["playlist"])
-        print("location: " + args["location"])
+    def play(self, rfid, location):
+        playlist = self.database.get_playlist(rfid)
+        print(playlist)
