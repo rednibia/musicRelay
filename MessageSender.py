@@ -12,5 +12,5 @@ class Message_Sender:
         message['playlist'] = playlist
         message['location'] = location
         message_json = json.dumps(message)
-        self.client.publish("music_player", message_json)
+        self.client.publish("music/player", message_json)
         print(message_json)
