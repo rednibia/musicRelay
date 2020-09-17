@@ -10,5 +10,6 @@ class MusicController(Resource):
     def post(self):
         self.parser.add_argument("rfid")
         self.parser.add_argument("location")
+        self.parser.add_argument("play_node")
         args = self.parser.parse_args()
-        self.music_processor.play(args["rfid"], args["location"])
+        self.music_processor.play(args["rfid"], args["location"], args["play_node"])

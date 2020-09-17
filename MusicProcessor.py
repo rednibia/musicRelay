@@ -1,12 +1,12 @@
-from MusicRepository import MusicRepository
-from MessageSender import Message_Sender
+from MusicPlayer import MusicPlayer
+from PlaylistProcessor import PlaylistProcessor
 
 
 class MusicProcessor(object):
 
-    music_repository = MusicRepository()
-    message_sender = Message_Sender()
+    playlist_processor = PlaylistProcessor()
+    music_player = MusicPlayer()
 
-    def play(self, rfid, location):
-        playlist = self.music_repository.get_playlist(rfid)
-        self.message_sender.send(playlist, location)
+    def play(self, rfid, location, play_mode):
+        playlist = self.playlist_processor.get_playlist(rfid)
+        self.music_player.play(playlist, location, play_mode)

@@ -1,0 +1,26 @@
+from MusicRepository import MusicRepository
+from soco import SoCo
+
+
+class MusicPlayer:
+
+    music_repository = MusicRepository()
+    ips = music_repository.get_ips()
+    sonos = SoCo(ips["TV Room"])
+    playlists = dict()
+    for favorite in sonos.music_library.get_sonos_favorites():
+        playlists[favorite.title] = favorite.reference
+
+    # VALID PLAY MODES
+    # ('NORMAL', 'SHUFFLE_NOREPEAT', 'SHUFFLE', 'REPEAT_ALL',
+    #           'SHUFFLE_REPEAT_ONE', 'REPEAT_ONE')
+    def play(self, playlist, location, play_mode):
+        print("PLAY MODE: " + str(play_mode))
+        if location not in self.ips:
+            self.ips = self.music_repository.get_ip(location)
+        sonos = SoCo(self.ips[location])
+        sonos.clear_queue()
+        sonos.add_to_queue(self.playlists[playlist])
+        if play_mode is not None:
+            sonos.play_mode = play_mode
+        sonos.play_from_queue(0)
