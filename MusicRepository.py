@@ -2,7 +2,7 @@ from configparser import ConfigParser
 from sqlalchemy import create_engine
 
 
-class Database(object):
+class MusicRepository(object):
     config = ConfigParser()
     config.read('config.ini')
     db_string = "postgres://{}:{}@{}:{}/music_lookup".format(
@@ -13,5 +13,4 @@ class Database(object):
     def get_playlist(self, rfid):
         sql_statement = "select playlist from rfid_playlist_lookup where rfid='{}'".format(rfid)
         row = self.db.execute(sql_statement).fetchone()
-        playlist = row['playlist']
-        return playlist
+        return row['playlist']

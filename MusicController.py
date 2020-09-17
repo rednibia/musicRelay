@@ -1,14 +1,14 @@
 from flask_restful import Resource, reqparse
-from MusicPlayer import MusicPlayer
+from MusicProcessor import MusicProcessor
 
 
 class MusicController(Resource):
 
     parser = reqparse.RequestParser()
-    music_player = MusicPlayer()
+    music_processor = MusicProcessor()
 
     def post(self):
         self.parser.add_argument("rfid")
         self.parser.add_argument("location")
         args = self.parser.parse_args()
-        self.music_player.play(args["rfid"], args["location"])
+        self.music_processor.play(args["rfid"], args["location"])
