@@ -1,11 +1,16 @@
-from flask import Flask
-from flask_restful import Api
 from MusicController import MusicController
+import paho.mqtt.client as mqtt
 
 
-app = Flask(__name__)
-api = Api(app)
-api.add_resource(MusicController, '/play/')
+def on_message(client, userdata, message):
+    print("received message: ", str(message.payload.decode("utf-8")))
 
-if __name__ == "__main__":
-    app.run(host='0.0.0.0')
+
+mqttBroker = "127.0.0.1"
+client = mqtt.Client("Music Relay")
+client.connect(mqttBroker)
+
+client.loop_start()
+
+client.subscribe("music/playlist")
+client.on_message = on_message
