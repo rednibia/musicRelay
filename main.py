@@ -14,9 +14,9 @@ def on_message(client, userdata, message):
 def main():
     client = mqtt.Client("Music Relay")
     client.connect(mqttBroker)
-    client.loop_forever()
     client.subscribe(topic)
     client.on_message = on_message
+    client.loop_forever()
 
 
 if __name__ == "__main__":
