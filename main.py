@@ -1,3 +1,4 @@
+import time
 import paho.mqtt.client as mqtt
 
 
@@ -10,6 +11,7 @@ client = mqtt.Client("Music Relay")
 client.connect(mqttBroker)
 
 client.loop_start()
-
 client.subscribe("music/playlist")
 client.on_message = on_message
+time.sleep(4) # wait
+client.loop_stop() #stop the loop
