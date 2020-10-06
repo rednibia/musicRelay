@@ -19,6 +19,7 @@ class MusicPlayer:
         for speaker in location:
             if speaker not in self.ips:
                 self.ips = self.music_repository.get_ip(speaker)
+            print("Playing on Speaker with IP Address: " + self.ips[speaker])
             sonos = SoCo(self.ips[speaker])
             sonos.clear_queue()
             sonos.add_to_queue(self.playlists[playlist])
