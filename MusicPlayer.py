@@ -23,4 +23,6 @@ class MusicPlayer:
         sonos.add_to_queue(self.playlists[playlist])
         if play_mode is not None:
             sonos.play_mode = play_mode
+        else:
+            sonos.play_mode = 'NORMAL'
         sonos.play_from_queue(0)
