@@ -7,8 +7,9 @@ mqttPort = 1883
 topic = "music/playlist"
 
 
-def on_message(client, userdata, message):
-    print("received message: ", str(message.payload.decode("utf-8")))
+def on_message(message):
+    payload = str(message.payload.decode("utf-8"))
+    print("received message: ", payload)
 
 
 def main():
