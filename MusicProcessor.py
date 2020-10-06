@@ -10,6 +10,6 @@ class MusicProcessor(object):
     music_player = MusicPlayer()
 
     def play(self, rfid, client_id, play_mode=None):
-        locations = self.client_processor.get_locations(client_id)
+        location = self.client_processor.get_location(client_id)
         playlist = self.playlist_processor.get_playlist(rfid)
-        self.music_player.play(playlist, locations, play_mode)
+        self.music_player.play(playlist, location, play_mode)
