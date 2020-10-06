@@ -13,7 +13,7 @@ music_processor = MusicProcessor()
 def on_message(client, userdata, message):
     payload = json.loads(str(message.payload.decode("utf-8")))
     print("received message: ", payload)
-    music_processor.play(payload['rfid'], payload['location'])
+    music_processor.play(payload['rfid'], payload['client_id'])
 
 
 def main():

@@ -35,3 +35,21 @@ class MusicRepository(object):
         sql_statement = "select ip_address from sonos_ip_lookup where sonos='{}'".format(sonos)
         row = self.db.execute(sql_statement).fetchone()
         return row['ip_address']
+
+    def get_locations(self):
+        locations = dict()
+        sql_statement = "select location, client_id from client_location_lookup"
+        rows = self.db.execute(sql_statement)
+        for row in rows:
+            if row['client_id'] not in locations.keys():
+                locations[row['client_id']] = set()
+            locations[row['client_id']].add(row['location'])
+        return locations
+
+    def get_location(self, client_id):
+        sql_statement = "select location from client_location_lookup where client_id='{}'".format(client_id)
+        rows = self.db.execute(sql_statement)
+        locations = set()
+        for row in rows:
+            locations.add(row['location'])
+        return locations
