@@ -1,4 +1,3 @@
-from MusicController import MusicController
 import paho.mqtt.client as mqtt
 
 
