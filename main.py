@@ -1,15 +1,18 @@
 import json
 import paho.mqtt.client as mqtt
+from MusicProcessor import MusicProcessor
 
 
 mqttBroker = "127.0.0.1"
 mqttPort = 1883
 topic = "music/playlist"
 
+music_processor = MusicProcessor()
 
 def on_message(client, userdata, message):
     payload = json.loads(str(message.payload.decode("utf-8")))
     print("received message: ", payload)
+    music_processor.play(payload['rfid'], payload['location'])
 
 
 def main():
