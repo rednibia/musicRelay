@@ -6,7 +6,7 @@ class MusicPlayer:
 
     music_repository = MusicRepository()
     ips = music_repository.get_ips()
-    sonos = SoCo(ips["TV Room"])
+    sonos = SoCo(ips["Gym"])
     playlists = dict()
     for favorite in sonos.music_library.get_sonos_favorites():
         playlists[favorite.title] = favorite.reference

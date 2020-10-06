@@ -9,6 +9,7 @@ topic = "music/playlist"
 
 music_processor = MusicProcessor()
 
+
 def on_message(client, userdata, message):
     payload = json.loads(str(message.payload.decode("utf-8")))
     print("received message: ", payload)
