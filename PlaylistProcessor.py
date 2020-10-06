@@ -7,9 +7,9 @@ class PlaylistProcessor:
     playlists = music_repository.get_playlists()
 
     def reset_playlists(self):
-        self.playlists = MusicRepository.get_playlists()
+        self.playlists = self.music_repository.get_playlists()
 
     def get_playlist(self, rfid):
         if rfid not in self.playlists.keys():
-            self.playlists[rfid] = MusicRepository.get_playlist(rfid)
+            self.playlists[rfid] = self.music_repository.get_playlist(rfid)
         return self.playlists[rfid]
