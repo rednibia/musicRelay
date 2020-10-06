@@ -1,4 +1,4 @@
-import time
+import json
 import paho.mqtt.client as mqtt
 
 
@@ -8,7 +8,7 @@ topic = "music/playlist"
 
 
 def on_message(client, userdata, message):
-    payload = str(message.payload.decode("utf-8"))
+    payload = json.loads(str(message.payload.decode("utf-8")))
     print("received message: ", payload)
 
 
