@@ -16,6 +16,10 @@ class MusicPlayer:
     #           'SHUFFLE_REPEAT_ONE', 'REPEAT_ONE')
     def play(self, playlist, location, play_mode):
         print("PLAY MODE: " + str(play_mode))
+        if playlist not in self.playlists.keys():
+            self.playlists = dict()
+            for favorite in self.sonos.music_library.get_sonos_favorites():
+                self.playlists[favorite.title] = favorite.reference
         try:
             for speaker in location:
                 if speaker not in self.ips:
