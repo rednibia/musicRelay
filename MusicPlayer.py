@@ -16,15 +16,19 @@ class MusicPlayer:
     #           'SHUFFLE_REPEAT_ONE', 'REPEAT_ONE')
     def play(self, playlist, location, play_mode):
         print("PLAY MODE: " + str(play_mode))
-        for speaker in location:
-            if speaker not in self.ips:
-                self.ips = self.music_repository.get_ip(speaker)
-            print("Playing on Speaker with IP Address: " + self.ips[speaker])
-            sonos = SoCo(self.ips[speaker])
-            sonos.clear_queue()
-            sonos.add_to_queue(self.playlists[playlist])
-            if play_mode is not None:
-                sonos.play_mode = play_mode
-            else:
-                sonos.play_mode = 'NORMAL'
-            sonos.play_from_queue(0)
+        try:
+            for speaker in location:
+                if speaker not in self.ips:
+                    self.ips = self.music_repository.get_ip(speaker)
+                print("Playing on Speaker with IP Address: " + self.ips[speaker])
+                sonos = SoCo(self.ips[speaker])
+                sonos.clear_queue()
+                sonos.add_to_queue(self.playlists[playlist])
+                if play_mode is not None:
+                    sonos.play_mode = play_mode
+                else:
+                    sonos.play_mode = 'NORMAL'
+                sonos.play_from_queue(0)
+        except KeyError:
+            print("Trouble with Playlist: {}, Location {}, Play_Mode: {}".format(playlist,
+                                                                                 location, play_mode))
