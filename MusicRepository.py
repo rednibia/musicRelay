@@ -1,5 +1,16 @@
 from configparser import ConfigParser
 from sqlalchemy import create_engine
+from sqlalchemy import Column, String
+from sqlalchemy.ext.declarative import declarative_base
+Base = declarative_base()
+from sqlalchemy.orm import sessionmaker
+
+
+class Playlist(Base):
+    __tablename__ = "rfid_playlist_lookup"
+
+    rfid = Column(String)
+    playlist = Column(String)
 
 
 class MusicRepository(object):
@@ -9,6 +20,8 @@ class MusicRepository(object):
         config['postgresql']['user'], config['postgresql']['password'],
         config['postgresql']['url'], config['postgresql']['port'])
     db = create_engine(db_string)
+    Session = sessionmaker(bind=db)
+    session = Session()
 
     def get_playlists(self):
         playlists = dict()
@@ -24,9 +37,9 @@ class MusicRepository(object):
         return row['playlist']
 
     def add_playlist(self, new_playlist, rfid):
-        sql_statement = "insert into rfid_playlist_lookup ('{}', '{}')".format(rfid, new_playlist)
-        row = self.db.execute(sql_statement).fetchone()
-        return row
+        playlist_row = Playlist(rfid=rfid, playlist=new_playlist)
+        self.session.add(playlist_row)
+        self.session.commit()
 
     def get_ips(self):
         ips = dict()
