@@ -18,3 +18,7 @@ class MusicProcessor(object):
             self.music_player.play(playlist, location, play_mode)
         except TypeError:
             print("Issue With Client ID: {}, RF ID: {}".format(client_id, rfid))
+            new_playlist = input("Playlist Name:")
+            if len(new_playlist) > 0:
+                result = self.playlist_processor.add_playlist(new_playlist, rfid)
+                print(result)

@@ -23,6 +23,11 @@ class MusicRepository(object):
         row = self.db.execute(sql_statement).fetchone()
         return row['playlist']
 
+    def add_playlist(self, new_playlist, rfid):
+        sql_statement = "insert into rfid_playlist_lookup ('{}', '{}')".format(rfid, new_playlist)
+        row = self.db.execute(sql_statement).fetchone()
+        return row
+
     def get_ips(self):
         ips = dict()
         sql_statement = "select sonos, ip_address from sonos_ip_lookup"

@@ -13,3 +13,6 @@ class PlaylistProcessor:
         if rfid not in self.playlists.keys():
             self.playlists[rfid] = self.music_repository.get_playlist(rfid)
         return self.playlists[rfid]
+
+    def add_playlist(self, new_playlist, rfid):
+        return self.music_repository.add_playlist(new_playlist, rfid)
