@@ -9,8 +9,8 @@ from sqlalchemy.orm import sessionmaker
 class Playlist(Base):
     __tablename__ = "rfid_playlist_lookup"
 
-    rfid = Column(String)
-    playlist = Column(String)
+    rfid = Column(String, primary_key=True)
+    playlist = Column(String, primary_key=True)
 
 
 class MusicRepository(object):
