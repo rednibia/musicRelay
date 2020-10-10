@@ -5,21 +5,28 @@ from MusicProcessor import MusicProcessor
 
 mqttBroker = "127.0.0.1"
 mqttPort = 1883
-topic = "music/playlist"
+playlist_topic = "music/playlist"
+controls_topic = "music/controls"
 
 music_processor = MusicProcessor()
 
 
 def on_message(client, userdata, message):
-    payload = json.loads(str(message.payload.decode("utf-8")))
-    print("received message: ", payload)
-    music_processor.play(payload['rfid'], payload['client_id'])
+    if message.topic == playlist_topic:
+        payload = json.loads(str(message.payload.decode("utf-8")))
+        print("received playlist message: ", payload)
+        music_processor.play(payload['rfid'], payload['client_id'])
+    if message.topic == controls_topic:
+        payload = json.loads(str(message.payload.decode("utf-8")))
+        print("received playlist message: ", payload)
+        # music_processor.play(payload['rfid'], payload['client_id'])
 
 
 def main():
     client = mqtt.Client("Music Relay")
     client.connect(mqttBroker)
-    client.subscribe(topic)
+    client.subscribe(playlist_topic)
+    client.subscribe(controls_topic)
     client.on_message = on_message
     client.loop_forever()
 
