@@ -36,3 +36,19 @@ class MusicPlayer:
         except KeyError:
             print("Trouble with Playlist: {}, Location {}, Play_Mode: {}".format(playlist,
                                                                                  location, play_mode))
+
+    def volume_up(self, location):
+        for speaker in location:
+            if speaker not in self.ips:
+                self.ips = self.music_repository.get_ip(speaker)
+            print("Raising Volume on Speaker with IP Address: " + self.ips[speaker])
+            sonos = SoCo(self.ips[speaker])
+            sonos.set_relative_volume(1)
+
+    def volume_down(self, location):
+        for speaker in location:
+            if speaker not in self.ips:
+                self.ips = self.music_repository.get_ip(speaker)
+            print("Lowering Volume on Speaker with IP Address: " + self.ips[speaker])
+            sonos = SoCo(self.ips[speaker])
+            sonos.set_relative_volume(-1)

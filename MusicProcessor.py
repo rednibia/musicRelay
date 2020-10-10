@@ -22,3 +22,11 @@ class MusicProcessor(object):
             if len(new_playlist) > 0:
                 result = self.playlist_processor.add_playlist(new_playlist, rfid)
                 print(result)
+
+    def command(self, command, client_id):
+        location = self.client_processor.get_location(client_id)
+        print("Running command in location: " + str(location))
+        if command == "volume_up":
+            self.music_player.volume_up(location)
+        if command == "volume_down":
+            self.music_player.volume_down(location)

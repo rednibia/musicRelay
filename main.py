@@ -19,7 +19,7 @@ def on_message(client, userdata, message):
     if message.topic == controls_topic:
         payload = json.loads(str(message.payload.decode("utf-8")))
         print("received playlist message: ", payload)
-        # music_processor.play(payload['rfid'], payload['client_id'])
+        music_processor.command(payload['command'], payload['client_id'])
 
 
 def main():
