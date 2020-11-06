@@ -9,6 +9,9 @@ class MusicPlayer:
     sonos = SoCo(ips["Gym"])
     playlists = dict()
     for favorite in sonos.music_library.get_sonos_favorites():
+        print(favorite)
+        print(favorite.title)
+        print(favorite.reference)
         playlists[favorite.title] = favorite.reference
 
     # VALID PLAY MODES
